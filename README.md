@@ -3,3 +3,31 @@ A Golang based password hasher, currently only supporting SHA-512, which allows 
 
 Example Of Hashed Password Output Page:
 ![Example Password Hash](http://i.imgur.com/VrwJhrd.png)
+
+## Installation
+
+```
+go get github.com/kkirsche/GoPasswordHasher
+```
+
+## Use
+
+### Development
+
+```
+go run main.go
+```
+
+### Production
+
+```
+go build -race main.go
+./main
+```
+
+or
+
+```
+go install -race
+GoPasswordHasher
+```
