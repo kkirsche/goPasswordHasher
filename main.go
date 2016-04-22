@@ -1,18 +1,9 @@
-package main
+package passwordhasher
 
-import (
-	"log"
-	"net/http"
+import "net/http"
 
-	"github.com/kkirsche/goPasswordHasher/handlers"
-)
-
-func main() {
-	http.HandleFunc("/public/", hasherHandlers.PublicAssets)
-	http.HandleFunc("/hash", hasherHandlers.HashPasswordHandler)
-	http.HandleFunc("/", hasherHandlers.CreateHashHandler)
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		log.Panicln(err)
-	}
+func init() {
+	http.HandleFunc("/public/", PublicAssetsHandler)
+	http.HandleFunc("/hash", HashPasswordHandler)
+	http.HandleFunc("/", CreateHashHandler)
 }

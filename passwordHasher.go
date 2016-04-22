@@ -1,4 +1,4 @@
-package passwordHasher
+package passwordhasher
 
 import "github.com/kless/osutil/user/crypt/sha512_crypt"
 
