@@ -28,14 +28,12 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 		Title: "SHA-512 Password Hash",
 	}
 	password := r.FormValue("password")
-	if password != "" {
-		p.PasswordHash, err = GenerateSHA512FromString(password)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-	} else {
-		p.PasswordHash = "Password cannot be a blank value. Please try again."
+	hashType := r.FormValue("hashType")
+	p.PasswordHash, err = HashPassword(password, hashType)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+
 	err = templates.ExecuteTemplate(w, "hashedPassword.html", p)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

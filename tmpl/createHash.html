@@ -41,6 +41,13 @@
             <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Enter password..." class="form-control">
+            <label for="hashType">Password Hash Type</label>
+            <select name="hashType" id="hashType" class="form-control">
+              <option value="sha512" default>SHA-512</option>
+              <option value="sha256" default>SHA-256</option>
+              <option value="apr1" default>APR1</option>
+              <option value="md5" default>MD5</option>
+            </select>
             <br>
             <button type="submit" class="btn btn-default">Create Hash</button>
             </div>
