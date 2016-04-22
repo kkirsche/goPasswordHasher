@@ -7,7 +7,7 @@ Example Of Hashed Password Output Page:
 ## Installation
 
 ```
-go get github.com/kkirsche/GoPasswordHasher
+go get github.com/kkirsche/goPasswordHasher
 ```
 
 ## Use
@@ -29,5 +29,5 @@ or
 
 ```
 go install -race
-GoPasswordHasher
+goPasswordHasher
 ```
