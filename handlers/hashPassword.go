@@ -3,8 +3,8 @@ package hasherHandlers
 import (
 	"net/http"
 
-	"github.com/kkirsche/ansiblePasswordGenerator/hasher"
-	"github.com/kkirsche/ansiblePasswordGenerator/models"
+	"github.com/kkirsche/goPasswordHasher/hasher"
+	"github.com/kkirsche/goPasswordHasher/models"
 )
 
 // HashPasswordHandler is responsible for handling requests to hash a password

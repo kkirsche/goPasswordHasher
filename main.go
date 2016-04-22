@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kkirsche/ansiblePasswordGenerator/handlers"
+	"github.com/kkirsche/goPasswordHasher/handlers"
 )
 
 func main() {

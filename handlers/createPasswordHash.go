@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/kkirsche/ansiblePasswordGenerator/models"
+	"github.com/kkirsche/goPasswordHasher/models"
 )
 
 var templates = template.Must(template.ParseFiles("tmpl/createHash.html", "tmpl/hashedPassword.html"))
