@@ -1,0 +1,19 @@
+{
+	"ImportPath": "github.com/kkirsche/ansiblePasswordGenerator",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v62",
+	"Deps": [
+		{
+			"ImportPath": "github.com/kless/osutil/user/crypt",
+			"Rev": "383719ab57fac2afbc390d96199d17504484eb8c"
+		},
+		{
+			"ImportPath": "github.com/kless/osutil/user/crypt/common",
+			"Rev": "383719ab57fac2afbc390d96199d17504484eb8c"
+		},
+		{
+			"ImportPath": "github.com/kless/osutil/user/crypt/sha512_crypt",
+			"Rev": "383719ab57fac2afbc390d96199d17504484eb8c"
+		}
+	]
+}
