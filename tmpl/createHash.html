@@ -23,7 +23,7 @@
         <nav class="navbar navbar-default">
           <div class="container-fluid">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#">SHA-512 Password Hasher</a>
+              <a class="navbar-brand" href="#">Password Hasher</a>
             </div>
           </div><!-- /.container-fluid -->
         </nav>
@@ -31,16 +31,24 @@
 
         <div class="container">
           <h2>Generate Hash</h2>
-          <p>To generate a SHA-512 password hash for use by tools such as
-          <a href="http://docs.ansible.com/ansible/user_module.html"
+          <p>Below, you have the capability to generate a password hash for use
+            by tools such as <a href="http://docs.ansible.com/ansible/user_module.html"
           title="Manage user accounts with Ansible">Ansible's user module</a> or
-          other deployment tools, enter the text you would like hashed in the
-          form below.</p>
+          other deployment tools. Enter the text you would like hashed in the
+          form below. To audit the source code of this tool, please visit:
+          <a href="https://github.com/kkirsche/goPasswordHasher/tree/appEngine" title="Github">Github</a></p>
 
           <form method="POST" action="hash">
             <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Enter password..." class="form-control">
+            <label for="hashType">Password Hash Type</label>
+            <select name="hashType" id="hashType" class="form-control">
+              <option value="sha512" default>SHA-512</option>
+              <option value="sha256" default>SHA-256</option>
+              <option value="apr1" default>APR1</option>
+              <option value="md5" default>MD5</option>
+            </select>
             <br>
             <button type="submit" class="btn btn-default">Create Hash</button>
             </div>

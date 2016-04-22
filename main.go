@@ -3,15 +3,24 @@ package main
 import (
 	"log"
 	"net/http"
-
-	"github.com/kkirsche/goPasswordHasher/handlers"
 )
 
 func main() {
-	http.HandleFunc("/public/", hasherHandlers.PublicAssets)
-	http.HandleFunc("/hash", hasherHandlers.HashPasswordHandler)
-	http.HandleFunc("/", hasherHandlers.CreateHashHandler)
-	err := http.ListenAndServe(":8080", nil)
+	httpAddr := ":8080"
+	httpsAddr := ":9090"
+
+	http.HandleFunc("/public/", PublicAssetsHandler)
+	http.HandleFunc("/hash", HashPasswordHandler)
+	http.HandleFunc("/", CreateHashHandler)
+
+	go func() {
+		err := http.ListenAndServe(httpAddr, nil)
+		if err != nil {
+			log.Panicln(err)
+		}
+	}()
+
+	err := http.ListenAndServeTLS(httpsAddr, "tls/cert.pem", "tls/key.pem", nil)
 	if err != nil {
 		log.Panicln(err)
 	}
