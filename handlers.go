@@ -12,7 +12,7 @@ var templates = template.Must(template.ParseFiles("tmpl/createHash.html", "tmpl/
 // website.
 func CreateHashHandler(w http.ResponseWriter, r *http.Request) {
 	p := &CreateHash{
-		Title: "Create SHA-512 Password Hash",
+		Title: "Password Hasher",
 	}
 	err := templates.ExecuteTemplate(w, "createHash.html", p)
 	if err != nil {
@@ -25,8 +25,9 @@ func CreateHashHandler(w http.ResponseWriter, r *http.Request) {
 func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	p := &HashedPassword{
-		Title: "SHA-512 Password Hash",
+		Title: "Password Hasher",
 	}
+
 	password := r.FormValue("password")
 	hashType := r.FormValue("hashType")
 	p.PasswordHash, err = HashPassword(password, hashType)
