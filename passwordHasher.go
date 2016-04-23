@@ -9,6 +9,7 @@ import (
 	"github.com/kless/osutil/user/crypt/sha512_crypt"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/crypto/md4"
+	"golang.org/x/crypto/sha3"
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 )
@@ -34,6 +35,17 @@ func HashPassword(password, hashType string) (string, error) {
 	}
 
 	return hash, err
+}
+
+// GenerateSHA3ShakeSum256FromString creates a SHA3 SHAKE-256 hash from a
+// password strings.
+func GenerateSHA3ShakeSum256FromString(password string) string {
+	passwordByteStream := []byte(password)
+	// A hash needs to be 64 bytes long to have 256-bit collision resistance.
+	passwordHash := make([]byte, 64)
+	sha3.ShakeSum256(passwordHash, passwordByteStream)
+
+	return hex.EncodeToString(passwordHash)
 }
 
 // GenerateSHA512FromString creates a SHA-512 password hash from a password

@@ -34,6 +34,7 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	switch password {
 	case "":
+		p.SHA3ShakeSum256 = noPassword
 		p.SHA512 = noPassword
 		p.SHA256 = noPassword
 		p.NTLM = noPassword
@@ -41,6 +42,8 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 		p.APR1 = noPassword
 		p.MD5 = noPassword
 	default:
+		p.SHA3ShakeSum256 = GenerateSHA3ShakeSum256FromString(password)
+
 		p.SHA512, err = GenerateSHA512FromString(password)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
