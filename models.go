@@ -3,13 +3,16 @@ package passwordhasher
 // CreateHash represents the information needed to fill in the create password
 // hash website
 type CreateHash struct {
-	Title string
+	Title       string
+	Description string
 }
 
 // HashedPassword represents the information needed to fill in the hashed
 // password portion of the website
 type HashedPassword struct {
-	Title           string
+	Title       string
+	Description string
+
 	SHA3ShakeSum256 string
 	SHA512          string
 	SHA256          string
