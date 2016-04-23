@@ -9,6 +9,9 @@ type CreateHash struct {
 // HashedPassword represents the information needed to fill in the hashed
 // password portion of the website
 type HashedPassword struct {
-	Title        string
-	PasswordHash string
+	Title  string
+	SHA512 string
+	SHA256 string
+	APR1   string
+	MD5    string
 }

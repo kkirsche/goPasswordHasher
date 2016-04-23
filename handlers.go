@@ -3,7 +3,10 @@ package passwordhasher
 import (
 	"html/template"
 	"net/http"
-	"regexp"
+)
+
+const (
+	noPassword = "No password was provided. Please enter a password and try again."
 )
 
 var templates = template.Must(template.ParseFiles("tmpl/createHash.html", "tmpl/hashedPassword.html"))
@@ -29,26 +32,36 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	password := r.FormValue("password")
-	hashType := r.FormValue("hashType")
-	p.PasswordHash, err = HashPassword(password, hashType)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	switch password {
+	case "":
+		p.SHA512 = noPassword
+		p.SHA256 = noPassword
+		p.APR1 = noPassword
+		p.MD5 = noPassword
+	default:
+		p.SHA512, err = GenerateSHA512FromString(password)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		p.SHA256, err = GenerateSHA256FromString(password)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		p.APR1, err = GenerateAPR1FromString(password)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		p.MD5, err = GenerateMD5FromString(password)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
 
 	err = templates.ExecuteTemplate(w, "hashedPassword.html", p)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-}
-
-var validAssetsPath = regexp.MustCompile(`^/(css|js|img)/([a-zA-Z0-9\.\_]+)$`)
-
-// PublicAssetsHandler serves publicly accessible web content
-func PublicAssetsHandler(w http.ResponseWriter, r *http.Request) {
-	m := validAssetsPath.FindStringSubmatch(r.URL.Path)
-	if m == nil {
-		http.NotFound(w, r)
-		return
-	}
-	http.ServeFile(w, r, r.URL.Path[1:])
 }

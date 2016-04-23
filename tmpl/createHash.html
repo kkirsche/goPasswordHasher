@@ -19,40 +19,57 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="#">Password Hasher</a>
+        <a href="https://github.com/kkirsche/goPasswordHasher"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+
+        <div class="container" style="margin-top: 40px;">
+          <div class="row">
+              <img src="public/img/logo.png" alt="hasher.pw" style="margin: 0 auto" class="visible-xs-block img-responsive" width="60%" height="60%" />
+              <img src="public/img/logo.png" alt="hasher.pw" style="margin: 0 auto" class="hidden-xs img-responsive" width="30%" height="30%" />
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <h3>Generate Hash</h3>
+              <p>Hasher is a tool for generating password hashes which can be
+          			used with tools such aside
+          			<a href="http://docs.ansible.com/ansible/user_module.html"
+          		title="Manage user accounts with Ansible">Ansible's user module</a>
+          		which requires hashed passwords for deployment. The problem? Many
+          		of my users don't have the necessary tools such as <code>mkpasswd</code>
+          		or <code>python</code> to create the hashes. For this reason, Hasher
+          		was born. To create a new password hash, enter the password in the form
+          		to the right.</p>
+
+              <p>This tool currently supports the following password hash formats:</p>
+              <ul>
+                <li>SHA-512</li>
+                <li>SHA-256</li>
+                <li>APR1-MD5</li>
+                <li>MD5</li>
+              </ul>
             </div>
-          </div><!-- /.container-fluid -->
-        </nav>
 
-
-        <div class="container">
-          <h2>Generate Hash</h2>
-          <p>Below, you have the capability to generate a password hash for use
-            by tools such as <a href="http://docs.ansible.com/ansible/user_module.html"
-          title="Manage user accounts with Ansible">Ansible's user module</a> or
-          other deployment tools. Enter the text you would like hashed in the
-          form below. To audit the source code of this tool, please visit:
-          <a href="https://github.com/kkirsche/goPasswordHasher/tree/appEngine" title="Github">Github</a></p>
-
-          <form method="POST" action="hash">
-            <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter password..." class="form-control">
-            <label for="hashType">Password Hash Type</label>
-            <select name="hashType" id="hashType" class="form-control">
-              <option value="sha512" default>SHA-512</option>
-              <option value="sha256" default>SHA-256</option>
-              <option value="apr1" default>APR1</option>
-              <option value="md5" default>MD5</option>
-            </select>
-            <br>
-            <button type="submit" class="btn btn-default">Create Hash</button>
+            <div class="col-sm-6">
+              <form method="POST" action="hash">
+                <div class="form-group">
+                  <h3><label for="password">Your Password</label></h3>
+                  <input type="text" name="password" id="password" placeholder="Enter password..." class="form-control">
+                  <br>
+                  <button type="submit" class="btn btn-info">Create Hash</button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
+          <p class="text-center">
+            <small>
+              As an avid security advocate, I always recommend that users understand the code that they
+              are using.
+              <br>
+              For this reason, this application is 100% open-source to increase transparency and
+              encourage trust. The source code may be viewed in the <code>appEngine</code> branch of the
+              <a href="https://github.com/kkirsche/goPasswordHasher/tree/appEngine" title="Github">Github repository</a>.
+            </small>
+          </p>
         </div>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -65,7 +82,7 @@
             e=o.createElement(i);r=o.getElementsByTagName(i)[0];
             e.src='https://www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+            ga('create','UA-76775363-1','auto');ga('send','pageview');
         </script>
     </body>
 </html>
