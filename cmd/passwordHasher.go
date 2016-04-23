@@ -15,12 +15,23 @@ import (
 )
 
 // GenerateSHA3ShakeSum256FromString creates a SHA3 SHAKE-256 hash from a
-// password strings.
+// password string.
 func GenerateSHA3ShakeSum256FromString(password string) string {
 	passwordByteStream := []byte(password)
 	// A hash needs to be 64 bytes long to have 256-bit collision resistance.
 	passwordHash := make([]byte, 64)
 	sha3.ShakeSum256(passwordHash, passwordByteStream)
+
+	return hex.EncodeToString(passwordHash)
+}
+
+// GenerateSHA3ShakeSum128FromString creates a SHA3 SHAKE-128 hash from a
+// password string.
+func GenerateSHA3ShakeSum128FromString(password string) string {
+	passwordByteStream := []byte(password)
+	// A hash needs to be 64 bytes long to have 256-bit collision resistance.
+	passwordHash := make([]byte, 64)
+	sha3.ShakeSum128(passwordHash, passwordByteStream)
 
 	return hex.EncodeToString(passwordHash)
 }
