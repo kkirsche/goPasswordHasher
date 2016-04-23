@@ -60,9 +60,9 @@ func GenerateSHA256FromString(password string) (string, error) {
 	return passwordHash, nil
 }
 
-// GenerateMD4FromString creates a MD4 password hash from a password
+// GenerateMD4WindowsNTLMFromString creates a MD4 password hash from a password
 // string which is compatible with Linux / BSD operating systems.
-func GenerateMD4FromString(password string) string {
+func GenerateMD4WindowsNTLMFromString(password string) string {
 	enc := unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewEncoder()
 	hasher := md4.New()
 	t := transform.NewWriter(hasher, enc)
