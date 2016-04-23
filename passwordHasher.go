@@ -5,6 +5,7 @@ import (
 	"github.com/kless/osutil/user/crypt/md5_crypt"
 	"github.com/kless/osutil/user/crypt/sha256_crypt"
 	"github.com/kless/osutil/user/crypt/sha512_crypt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // HashPassword is used to generate a password hash of the correct type
@@ -17,6 +18,8 @@ func HashPassword(password, hashType string) (string, error) {
 		hash, err = GenerateSHA512FromString(password)
 	case "sha256":
 		hash, err = GenerateSHA256FromString(password)
+	case "bcrypt":
+		hash, err = GenerateBcryptFromString(password)
 	case "apr1":
 		hash, err = GenerateAPR1FromString(password)
 	case "md5":
@@ -52,6 +55,17 @@ func GenerateSHA256FromString(password string) (string, error) {
 	}
 
 	return passwordHash, nil
+}
+
+// GenerateBcryptFromString creates a Bcrypt password hash from a password
+// string which is compatible with Linux / BSD operating systems.
+func GenerateBcryptFromString(password string) (string, error) {
+	passwordByteStream := []byte(password)
+	passwordHash, err := bcrypt.GenerateFromPassword(passwordByteStream, bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(passwordHash), nil
 }
 
 // GenerateAPR1FromString creates a APR1 password hash from a password

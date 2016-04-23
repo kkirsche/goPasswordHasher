@@ -36,6 +36,7 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 	case "":
 		p.SHA512 = noPassword
 		p.SHA256 = noPassword
+		p.Bcrypt = noPassword
 		p.APR1 = noPassword
 		p.MD5 = noPassword
 	default:
@@ -45,6 +46,11 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		p.SHA256, err = GenerateSHA256FromString(password)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		p.Bcrypt, err = GenerateBcryptFromString(password)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
