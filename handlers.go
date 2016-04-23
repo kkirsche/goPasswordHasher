@@ -36,6 +36,7 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 	case "":
 		p.SHA512 = noPassword
 		p.SHA256 = noPassword
+		p.NTLM = noPassword
 		p.Bcrypt = noPassword
 		p.APR1 = noPassword
 		p.MD5 = noPassword
@@ -49,6 +50,8 @@ func HashPasswordHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
+
+		p.NTLM = GenerateMD4WindowsNTLMFromString(password)
 
 		p.Bcrypt, err = GenerateBcryptFromString(password)
 		if err != nil {

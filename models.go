@@ -12,6 +12,7 @@ type HashedPassword struct {
 	Title  string
 	SHA512 string
 	SHA256 string
+	NTLM   string
 	Bcrypt string
 	APR1   string
 	MD5    string

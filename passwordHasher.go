@@ -1,11 +1,16 @@
 package passwordhasher
 
 import (
+	"encoding/hex"
+
 	"github.com/kless/osutil/user/crypt/apr1_crypt"
 	"github.com/kless/osutil/user/crypt/md5_crypt"
 	"github.com/kless/osutil/user/crypt/sha256_crypt"
 	"github.com/kless/osutil/user/crypt/sha512_crypt"
 	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/md4"
+	"golang.org/x/text/encoding/unicode"
+	"golang.org/x/text/transform"
 )
 
 // HashPassword is used to generate a password hash of the correct type
@@ -55,6 +60,16 @@ func GenerateSHA256FromString(password string) (string, error) {
 	}
 
 	return passwordHash, nil
+}
+
+// GenerateMD4WindowsNTLMFromString creates a MD4 based password hash from a
+// password string which is compatible with Linux / BSD operating systems.
+func GenerateMD4WindowsNTLMFromString(password string) string {
+	enc := unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewEncoder()
+	hasher := md4.New()
+	t := transform.NewWriter(hasher, enc)
+	t.Write([]byte(password))
+	return hex.EncodeToString(hasher.Sum(nil))
 }
 
 // GenerateBcryptFromString creates a Bcrypt password hash from a password
