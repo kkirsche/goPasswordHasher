@@ -9,29 +9,20 @@ import (
 	"github.com/kless/osutil/user/crypt/sha512_crypt"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/crypto/md4"
+	"golang.org/x/crypto/sha3"
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 )
 
-// HashPassword is used to generate a password hash of the correct type
-func HashPassword(password, hashType string) (string, error) {
-	var hash string
-	var err error
+// GenerateSHA3ShakeSum256FromString creates a SHA3 SHAKE-256 hash from a
+// password strings.
+func GenerateSHA3ShakeSum256FromString(password string) string {
+	passwordByteStream := []byte(password)
+	// A hash needs to be 64 bytes long to have 256-bit collision resistance.
+	passwordHash := make([]byte, 64)
+	sha3.ShakeSum256(passwordHash, passwordByteStream)
 
-	switch hashType {
-	case "sha512":
-		hash, err = GenerateSHA512FromString(password)
-	case "sha256":
-		hash, err = GenerateSHA256FromString(password)
-	case "apr1":
-		hash, err = GenerateAPR1FromString(password)
-	case "md5":
-		hash, err = GenerateMD5FromString(password)
-	default:
-		hash = "Password cannot be a blank value. Please try again."
-	}
-
-	return hash, err
+	return hex.EncodeToString(passwordHash)
 }
 
 // GenerateSHA512FromString creates a SHA-512 password hash from a password
@@ -60,8 +51,8 @@ func GenerateSHA256FromString(password string) (string, error) {
 	return passwordHash, nil
 }
 
-// GenerateMD4WindowsNTLMFromString creates a MD4 password hash from a password
-// string which is compatible with Linux / BSD operating systems.
+// GenerateMD4WindowsNTLMFromString creates a MD4 based password hash from a
+// password string which is compatible with Linux / BSD operating systems.
 func GenerateMD4WindowsNTLMFromString(password string) string {
 	enc := unicode.UTF16(unicode.LittleEndian, unicode.IgnoreBOM).NewEncoder()
 	hasher := md4.New()
