@@ -1,4 +1,4 @@
-package passwordhasher
+package cmd
 
 import (
 	"github.com/kless/osutil/user/crypt/apr1_crypt"
