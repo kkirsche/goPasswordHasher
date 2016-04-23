@@ -14,6 +14,7 @@ type HashedPassword struct {
 	Description string
 
 	SHA3ShakeSum256 string
+	SHA3ShakeSum128 string
 	SHA512          string
 	SHA256          string
 	NTLM            string
